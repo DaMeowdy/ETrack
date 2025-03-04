@@ -137,3 +137,11 @@ C:\Users\YNTMD\projects\madison\ETRACK\ETRACK.PERSISTENCE\src\obj\Debug\net8.0\s
 C:\Users\YNTMD\projects\madison\ETRACK\ETRACK.PERSISTENCE\src\obj\Debug\net8.0\ref\src.dll
 C:\Users\YNTMD\projects\madison\ETRACK\ETRACK.PERSISTENCE\src\bin\Debug\net8.0\BIP39.NET.dll
 C:\Users\YNTMD\projects\madison\ETRACK\ETRACK.PERSISTENCE\src\bin\Debug\net8.0\BouncyCastle.Crypto.dll
+C:\Users\YNTMD\projects\madison\ETRACK\ETRACK.PERSISTENCE\src\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\YNTMD\projects\madison\ETRACK\ETRACK.PERSISTENCE\src\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\YNTMD\projects\madison\ETRACK\ETRACK.PERSISTENCE\src\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\YNTMD\projects\madison\ETRACK\ETRACK.PERSISTENCE\src\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\YNTMD\projects\madison\ETRACK\ETRACK.PERSISTENCE\src\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\YNTMD\projects\madison\ETRACK\ETRACK.PERSISTENCE\src\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\YNTMD\projects\madison\ETRACK\ETRACK.PERSISTENCE\src\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\YNTMD\projects\madison\ETRACK\ETRACK.PERSISTENCE\src\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll

@@ -3,6 +3,7 @@ using src;
 using src.models;
 using src.services.concrete;
 using src.services.interfaces;
+using src.routers;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,7 +17,6 @@ builder.Services.AddSingleton<ICryptographyService, CryptographyService>();
 builder.Services.AddSingleton<IJWTService, JWTService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 var app = builder.Build();
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -24,7 +24,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
+app.MapAuthenticationRoutes();
 app.UseHttpsRedirection();
 
 app.Run();

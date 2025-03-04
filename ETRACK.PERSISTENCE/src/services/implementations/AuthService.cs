@@ -19,16 +19,19 @@ public class AuthService: IAuthService
 
     public async Task<LoginResponse> Login(LoginRequest request)
     {
-        User _user = await _context.Users.FirstOrDefaultAsync(usr => usr.Login.Username == request.username);
+        Login _user = await _context.Logins.SingleOrDefaultAsync<Login?>(login => login.Username == request.username);
         if (_user is null)
             return new LoginResponse(401, "Unauthorized");
 
-        string ChallengeHash = _cryptographyService.HashString(_user?.Login?.Salt, request.password);
+        string ChallengeHash = _cryptographyService.HashString(_user.Salt, request.password);
 
-        if (await this._cryptographyService.CompareHash(ChallengeHash, _user.Login.PasswordHash))
+        if (await this._cryptographyService.CompareHash(ChallengeHash, _user.PasswordHash))
             return new LoginResponse(401, "Unauthorized");
 
-        string jwtToken = await _jwtService.CreateJWT(new JWTCreateRequest(_user.UserId.ToString(), _user.Login.LoginId, _user.Login.Username));
+        User AssociatedUser = await this._context.Users.SingleOrDefaultAsync<User>(_usr => _usr.UserId == _user.UserId);
+        if (AssociatedUser is null)
+            return new LoginResponse(401, "Unauthorized");
+        string jwtToken = await _jwtService.CreateJWT(new JWTCreateRequest(AssociatedUser.UserId.ToString(), _user.LoginId, _user.Username));
         return new LoginResponse(201, jwtToken);
     }
 }
