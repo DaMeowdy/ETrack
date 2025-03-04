@@ -10,9 +10,9 @@ public class AuthService: IAuthService
     private readonly RailwayContext _context;
     private readonly ICryptographyService _cryptographyService;
     private readonly IJWTService _jwtService;
-    public AuthService(RailwayContext context, ICryptographyService cryptographyService, IJWTService jwtService)
+    public AuthService(ICryptographyService cryptographyService, IJWTService jwtService)
     {
-        _context = context;
+        _context = new RailwayContext();
         _jwtService = jwtService;
         _cryptographyService = cryptographyService;      
     }
@@ -25,7 +25,7 @@ public class AuthService: IAuthService
 
         string ChallengeHash = _cryptographyService.HashString(_user.Salt, request.password);
 
-        if (await this._cryptographyService.CompareHash(ChallengeHash, _user.PasswordHash))
+        if (!await this._cryptographyService.CompareHash(ChallengeHash, _user.PasswordHash))
             return new LoginResponse(401, "Unauthorized");
 
         User AssociatedUser = await this._context.Users.SingleOrDefaultAsync<User>(_usr => _usr.UserId == _user.UserId);
