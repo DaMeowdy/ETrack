@@ -1,12 +1,20 @@
+using Microsoft.AspNetCore.Http.HttpResults;
+using src;
+using src.models;
+using src.services.concrete;
+using src.services.interfaces;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddDbContext<RailwayContext>();
+builder.Services.AddSingleton<ICryptographyService, CryptographyService>();
+builder.Services.AddSingleton<IJWTService, JWTService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -16,10 +24,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
-
-app.MapControllers();
-
 app.Run();
+

@@ -4,7 +4,7 @@ CREATE TABLE Users (
 );
 
 CREATE TABLE Logins (
-    login_id VARCHAR(32) PRIMARY KEY,
+    login_id text PRIMARY KEY,
     user_id INT UNIQUE REFERENCES Users(user_id) ON DELETE CASCADE,
     username TEXT UNIQUE NOT NULL,
     salt TEXT NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE Logins (
 );
 
 CREATE TABLE Estrogen_Levels (
-    level_id VARCHAR(60) PRIMARY KEY,
+    level_id text PRIMARY KEY,
     user_id INT NOT NULL REFERENCES Users(user_id) ON DELETE CASCADE,
     date_tested DATE NOT NULL,
     level_pmol INT NOT NULL,
@@ -21,17 +21,17 @@ CREATE TABLE Estrogen_Levels (
 );
 
 CREATE TABLE Dosages (
-    dosage_id VARCHAR(60)  PRIMARY KEY,
+    dosage_id text  PRIMARY KEY,
     user_id INT NOT NULL REFERENCES Users(user_id) ON DELETE CASCADE,
-    concentration NUMERIC(10,2) NOT NULL,
+    concentration text NOT NULL,
     amount NUMERIC(10,2) NOT NULL,
     ester TEXT NOT NULL
 );
 
 CREATE TABLE Doses (
-    dose_id VARCHAR(60) PRIMARY KEY,
+    dose_id text PRIMARY KEY,
     user_id INT NOT NULL REFERENCES Users(user_id) ON DELETE CASCADE,
-    dosage_id INT NOT NULL REFERENCES Dosages(dosage_id) ON DELETE CASCADE,
+    dosage_id TEXT NOT NULL REFERENCES Dosages(dosage_id) ON DELETE CASCADE,
     is_done BOOLEAN DEFAULT FALSE,
     date_scheduled DATE NOT NULL
 );
