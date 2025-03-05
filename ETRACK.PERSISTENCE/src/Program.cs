@@ -17,6 +17,7 @@ builder.Services.AddSingleton<ICryptographyService, CryptographyService>();
 builder.Services.AddSingleton<IJWTService, JWTService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IRecoveryService, RecoveryService>();
+builder.Services.AddScoped<IDosageService, DosageService>();
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -26,6 +27,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapAuthenticationRoutes();
+app.MapDosageRoutes();
 app.UseHttpsRedirection();
 
 app.Run();
