@@ -3,5 +3,5 @@ namespace src.services.interfaces;
 public interface IJWTService 
 {
     Task<string> CreateJWT(JWTCreateRequest request);
-    Task<bool> ValidateJWT(string jwtToken);
+    Task<string> ValidateJWT(string jwtToken);
 }

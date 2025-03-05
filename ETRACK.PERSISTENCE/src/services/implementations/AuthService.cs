@@ -28,7 +28,7 @@ public class AuthService: IAuthService
         if (!await this._cryptographyService.CompareHash(ChallengeHash, _user.PasswordHash))
             return new LoginResponse(401, "Unauthorized");
 
-        User AssociatedUser = await this._context.Users.SingleOrDefaultAsync<User>(_usr => _usr.UserId == _user.UserId);
+        User AssociatedUser = await this._context.Users.SingleOrDefaultAsync<User?>(_usr => _usr.UserId == _user.UserId);
         if (AssociatedUser is null)
             return new LoginResponse(401, "Unauthorized");
         string jwtToken = await _jwtService.CreateJWT(new JWTCreateRequest(AssociatedUser.UserId.ToString(), _user.LoginId, _user.Username));

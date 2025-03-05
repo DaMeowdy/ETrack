@@ -23,23 +23,24 @@ public sealed class JWTService : IJWTService
         string jwt_string = jwtSecurityTokenHandler.WriteToken(token);
         return Task.FromResult(jwt_string);
     }
-    //TODO : make this return the LoginID of the user so we can do funnies.
-    public Task<bool> ValidateJWT(string jwtToken)
+    public async Task<string> ValidateJWT(string jwtToken)
     {
         if (string.IsNullOrEmpty(jwtToken))
-            return Task.FromResult(false);
+            return await Task.FromResult("401 : UNAUTHORIZED");
         TokenValidationParameters tokenValidationParameters = ConfigureTokenValidationParameters();
 
         JwtSecurityTokenHandler _jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
         try 
         {
             ClaimsPrincipal _ValidJWTToken = _jwtSecurityTokenHandler.ValidateToken(jwtToken, tokenValidationParameters, out SecurityToken token);
-            
-            return Task.FromResult(true);
+            Claim _loginID = _ValidJWTToken.Claims.SingleOrDefault<Claim?>(claim => claim.Type == JwtRegisteredClaimNames.Jti);
+            if (_loginID is null)
+                return await Task.FromResult("401 : UNAUTHORIZED");
+            return await Task.FromResult(_loginID.Value);
         }
         catch (System.Exception ex)
         {
-            return Task.FromResult(false);
+            return await Task.FromResult("401 : UNAUTHORIZED");
         }
     }
     private IEnumerable<Claim> GenerateClaimsList(JWTCreateRequest request)
