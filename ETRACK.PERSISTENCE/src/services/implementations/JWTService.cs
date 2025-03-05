@@ -23,7 +23,7 @@ public sealed class JWTService : IJWTService
         string jwt_string = jwtSecurityTokenHandler.WriteToken(token);
         return Task.FromResult(jwt_string);
     }
-
+    //TODO : make this return the LoginID of the user so we can do funnies.
     public Task<bool> ValidateJWT(string jwtToken)
     {
         if (string.IsNullOrEmpty(jwtToken))
@@ -34,6 +34,7 @@ public sealed class JWTService : IJWTService
         try 
         {
             ClaimsPrincipal _ValidJWTToken = _jwtSecurityTokenHandler.ValidateToken(jwtToken, tokenValidationParameters, out SecurityToken token);
+            
             return Task.FromResult(true);
         }
         catch (System.Exception ex)
